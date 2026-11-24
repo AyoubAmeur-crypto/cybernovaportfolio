@@ -29,6 +29,8 @@ Current phase: Phases 1–4 implemented and verified; bidirectional Hero-to-Cont
 - `package.json` (uses `gsap@3.15.1`, `react-icons`, and `lucide-react`; `lenis` removed)
 - `public/favicon.svg`
 - `public/site.webmanifest`
+- `public/assets/readme-banner-light.svg` / `public/assets/readme-banner-dark.svg`
+- `README.md`
 - `public/assets/figma/*` (9 extracted Viralytics SVG & PNG assets)
 - `src/index.css`
 - `src/types/portfolio.ts`
