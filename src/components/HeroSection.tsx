@@ -21,7 +21,7 @@ const gentleCurve = (val: number, inMin: number, inMax: number) => {
 };
 
 export const HeroSection: React.FC = () => {
-  const { scrollTo, prefersReducedMotion, smootherReady } = useSmoothScroll();
+  const { scrollTo, prefersReducedMotion, smootherReady, isDesktopSmoother } = useSmoothScroll();
 
   const portalStageRef = useRef<HTMLDivElement | null>(null);
   const introBackLayerRef = useRef<HTMLDivElement | null>(null);
@@ -194,10 +194,21 @@ export const HeroSection: React.FC = () => {
     };
   }, [prefersReducedMotion]);
 
-  // Synchronized 1:1 with GSAP ScrollSmoother using explicit `pinType: 'transform'`
-  // (prevents child-before-parent `useLayoutEffect` from selecting `position: fixed` inside transformed #smooth-content!)
+  // Desktop uses `pinType: 'transform'` + `scrub: true` inside ScrollSmoother;
+  // Mobile touch uses GPU-locked `pinType: 'fixed'` + inertial `scrub: 0.38` for zero-jiggle transitions!
   useLayoutEffect(() => {
     if (!portalStageRef.current || prefersReducedMotion || !smootherReady) return;
+
+    let lockedVh = window.innerHeight;
+    let lastWidth = window.innerWidth;
+    const onOrientationOrWidthResize = () => {
+      if (Math.abs(window.innerWidth - lastWidth) > 24) {
+        lastWidth = window.innerWidth;
+        lockedVh = window.innerHeight;
+        ScrollTrigger.refresh();
+      }
+    };
+    window.addEventListener('resize', onOrientationOrWidthResize, { passive: true });
 
     const ctx = gsap.context(() => {
       applyScrollProgress(0);
@@ -205,11 +216,14 @@ export const HeroSection: React.FC = () => {
       ScrollTrigger.create({
         trigger: portalStageRef.current,
         start: 'top top',
-        end: () => `+=${Math.round(window.innerHeight * HERO_ZOOM_SCROLL_FACTOR)}`,
+        end: () =>
+          `+=${Math.round(
+            (isDesktopSmoother ? window.innerHeight : lockedVh) * HERO_ZOOM_SCROLL_FACTOR
+          )}`,
         pin: true,
-        pinType: 'transform',
-        scrub: true,
-        anticipatePin: 0,
+        pinType: isDesktopSmoother ? 'transform' : 'fixed',
+        scrub: isDesktopSmoother ? true : 0.38,
+        anticipatePin: isDesktopSmoother ? 0 : 1,
         invalidateOnRefresh: true,
         onUpdate: (self) => {
           applyScrollProgress(self.progress);
@@ -229,7 +243,10 @@ export const HeroSection: React.FC = () => {
       ScrollTrigger.create({
         trigger: portalStageRef.current,
         start: 'top bottom',
-        end: () => `+=${Math.round(window.innerHeight * (HERO_ZOOM_SCROLL_FACTOR + 2.5))}`,
+        end: () =>
+          `+=${Math.round(
+            (isDesktopSmoother ? window.innerHeight : lockedVh) * (HERO_ZOOM_SCROLL_FACTOR + 2.5)
+          )}`,
         onEnterBack: () => {
           const vidA = videoARef.current;
           const vidB = videoBRef.current;
@@ -239,8 +256,11 @@ export const HeroSection: React.FC = () => {
       });
     }, portalStageRef);
 
-    return () => ctx.revert();
-  }, [applyScrollProgress, prefersReducedMotion, smootherReady]);
+    return () => {
+      window.removeEventListener('resize', onOrientationOrWidthResize);
+      ctx.revert();
+    };
+  }, [applyScrollProgress, prefersReducedMotion, smootherReady, isDesktopSmoother]);
 
   if (prefersReducedMotion) {
     return (

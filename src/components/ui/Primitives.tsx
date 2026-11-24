@@ -144,12 +144,12 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
 
   const iconSizeClass =
     size === 'lg'
-      ? 'w-[18px] h-[18px] sm:w-[25px] sm:h-[25px]'
-      : 'w-[15px] h-[15px] sm:w-[21px] sm:h-[21px]';
-  const salmaSize =
-    size === 'lg' ? 'text-[22px] sm:text-[31px]' : 'text-[16.5px] sm:text-[23px]';
-  const atouSize =
-    size === 'lg' ? 'text-[19px] sm:text-[26px]' : 'text-[14px] sm:text-[19.5px]';
+      ? 'w-[17px] h-[17px] sm:w-[23px] sm:h-[23px]'
+      : 'w-[14px] h-[14px] sm:w-[19px] sm:h-[19px]';
+  // Equalized font-size + CSS `font-size-adjust: 0.5` ensures the `a` of `salma` and `a` of `atou`
+  // have the exact same pixel height across Android, iOS, macOS, and Windows!
+  const wordSize =
+    size === 'lg' ? 'text-[20px] sm:text-[26px]' : 'text-[15px] sm:text-[19.5px]';
 
   return (
     <span
@@ -169,12 +169,12 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
           fillOpacity={secondaryOpacity}
         />
       </svg>
-      <span className="inline-flex items-baseline gap-0 lowercase leading-none">
-        <span className={`font-brand-salma italic font-normal tracking-[-0.01em] mr-[0.02em] ${salmaSize}`}>
+      <span className={`inline-flex items-baseline gap-0 lowercase leading-none ${wordSize}`}>
+        <span className="font-brand-salma italic font-normal tracking-[-0.01em] mr-[0.02em]">
           salma
         </span>
         <span
-          className={`font-brand-atou font-bold tracking-[-0.04em] ${atouSize} ${
+          className={`font-brand-atou font-bold tracking-[-0.035em] ${
             tone === 'light'
               ? 'text-[#D4879C]'
               : tone === 'dark'

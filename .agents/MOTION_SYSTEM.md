@@ -10,9 +10,9 @@ After evaluating `Lenis` against `GSAP ScrollSmoother` (`gsap/ScrollSmoother` in
   - `lenis` has been removed from `package.json` so `Lenis` and `ScrollSmoother` can **never** run simultaneously.
 
 ### Active Architecture (`src/context/SmoothScrollContext.tsx`)
-- **Single Centralized `ScrollSmoother` Instance**:
-  - Configured with `smooth: 1.05`, `effects: true`, `smoothTouch: false` (preserving native mobile touch scrolling), and `ignoreMobileResize: true`.
-  - Exposes `smootherReady` so child `ScrollTrigger` hooks initialize strictly *after* `ScrollSmoother.create()` establishes its scroller proxy and `#smooth-content` transform, followed by `ScrollTrigger.sort()` and `ScrollTrigger.refresh()`.
+- **Adaptive Desktop vs. Mobile Touch Architecture**:
+  - **Desktop (`(hover: hover) and (pointer: fine)`)**: Uses `GSAP ScrollSmoother` (`smooth: 1.05`, `effects: true`, `smoothTouch: false`, `ignoreMobileResize: true`) paired with `pinType: 'transform'` and `scrub: true` on `HeroSection`.
+  - **Mobile / Touch Phones**: Skips `ScrollSmoother` container transforms and `will-change: transform` on `#smooth-content` so `HeroSection` uses native GPU compositor `pinType: 'fixed'` with smoothed inertial `scrub: 0.38`, `anticipatePin: 1`, and width-locked `vh` (`ScrollTrigger.config({ ignoreMobileResize: true })`) — completely eliminating async compositor vs. main-thread vertical jiggle on iOS Safari and Android Chrome.
   - Properly torn down via `gsap.context().revert()` on unmount or reduced-motion toggle.
 - **Fixed UI Isolation & Compositor-Only Contraction (`src/components/Navbar.tsx`)**:
   - The floating Apple-inspired Liquid Glass `<Navbar />`, full-screen top-to-bottom menu overlay, and portaled `<dialog>` contact modal render **outside** `#smooth-wrapper` / `#smooth-content` so CSS `position: fixed` and `backdrop-filter` remain unaffected by container transforms.

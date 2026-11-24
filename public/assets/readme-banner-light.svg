@@ -5,20 +5,20 @@
     <path d="M16.5 2L26.5 14L16.5 26L6.5 14L16.5 2Z" fill="#1A1A2E" fill-opacity="0.28" />
   </g>
 
-  <!-- Attached Lowercase Wordmark: "salma" (Times New Roman MT Italic) + "atou" (Bold Sans in Theme Pink) -->
+  <!-- Attached Lowercase Wordmark: Equalized x-height between "salma" & "atou" -->
   <text x="368" y="80" text-anchor="middle">
     <tspan
-      font-family="'Times New Roman MT', 'Times New Roman', Times, Georgia, serif"
+      font-family="'Times New Roman MT', 'Times New Roman', 'Tinos', Times, serif"
       font-style="italic"
       font-weight="400"
-      font-size="64"
-      letter-spacing="-0.8"
+      font-size="56"
+      letter-spacing="-0.6"
       fill="#1A1A2E"
     >salma</tspan><tspan
       font-family="'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
       font-weight="700"
-      font-size="55"
-      letter-spacing="-2.2"
+      font-size="54"
+      letter-spacing="-2"
       dx="-1"
       fill="#D4879C"
     >atou</tspan>
@@ -37,3 +37,4 @@
     fill="#646464"
   >CYBERSECURITY ENGINEER · DEFENSIVE &amp; OFFENSIVE SECURITY</text>
 </svg>
+

@@ -208,16 +208,16 @@ export const Footer: React.FC = () => {
         </div>
       </div>
 
-      {/* Natural Unstretched Oversized Watermark ("salmaatou") Scaled Up Proportionally Right Under Footer */}
-      <div className="pt-2 sm:pt-3 pb-2 flex items-baseline justify-center overflow-hidden select-none px-1">
+      {/* Refined Proportionally Smaller Watermark ("salmaatou") — Equalized x-height & Compact on Small Phones */}
+      <div className="pt-5 sm:pt-7 pb-3 flex items-baseline justify-center overflow-hidden select-none px-4">
         <p
           aria-hidden="true"
-          className="salma-signature-gradient text-[18.6vw] xl:text-[268px] leading-[0.82] text-center whitespace-nowrap inline-flex items-baseline justify-center gap-0 lowercase"
+          className="salma-signature-gradient text-[10.5vw] sm:text-[11.5vw] xl:text-[158px] leading-[0.88] text-center whitespace-nowrap inline-flex items-baseline justify-center gap-0 lowercase"
         >
           <span className="font-brand-salma italic font-normal tracking-[-0.015em] mr-[0.02em]">
             salma
           </span>
-          <span className="font-brand-atou text-[0.86em] font-bold tracking-[-0.045em]">
+          <span className="font-brand-atou font-bold tracking-[-0.04em]">
             atou
           </span>
         </p>

@@ -29,15 +29,23 @@ body {
   overflow-x: clip;
 }
 
-/* GSAP ScrollSmoother Container Architecture */
+/* GSAP ScrollSmoother Container Architecture (Active Only on Desktop Fine-Pointer Devices)
+   Keeping #smooth-content free of `will-change: transform` on touch phones preserves native
+   GPU compositor `position: fixed` pinning with zero async touch-scroll jiggle! */
 #smooth-wrapper {
-  overflow: hidden;
   width: 100%;
+}
+
+#smooth-wrapper[data-smoother='active'] {
+  overflow: hidden;
 }
 
 #smooth-content {
   overflow: visible;
   width: 100%;
+}
+
+#smooth-content[data-smoother='active'] {
   will-change: transform;
 }
 
@@ -55,15 +63,19 @@ body {
   font-family: 'Sora', 'Plus Jakarta Sans', sans-serif;
 }
 
-/* Brand Identity Pairing: lowercase "salma" (Times New Roman MT Italic) + "atou" (Be Vietnam Bold) attached */
+/* Brand Identity Pairing: lowercase "salma" (Times New Roman MT / Tinos Italic) + "atou" (Be Vietnam Bold) attached.
+   `font-size-adjust: 0.5` locks both fonts to identical lowercase x-height so the `a` in `salma`
+   and the `a` in `atou` match to the pixel across Android, iOS, macOS, and Windows. */
 .font-brand-salma {
-  font-family: 'Times New Roman MT', 'Times New Roman', Times, Georgia, serif;
+  font-family: 'Times New Roman MT', 'Times New Roman', 'Tinos', Times, serif;
   font-style: italic;
+  font-size-adjust: 0.5;
 }
 
 .font-brand-atou {
   font-family: 'Be Vietnam Pro', 'Be Vietnam', -apple-system, BlinkMacSystemFont, sans-serif;
   font-weight: 700;
+  font-size-adjust: 0.5;
 }
 
 /* Dark-Blue Footer Background Gradient for Signature Wordmark (No Pink/Bright-Blue Mix) */
@@ -92,13 +104,13 @@ body {
 
 /* Apple-Inspired Liquid Glass — STRICTLY RESERVED FOR THE FLOATING NAVBAR ONLY */
 .apple-navbar-glass-light {
-  background: rgba(255, 255, 255, 0.78);
-  backdrop-filter: blur(20px) saturate(185%);
-  -webkit-backdrop-filter: blur(20px) saturate(185%);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(24px) saturate(190%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
   border: 1px solid rgba(26, 26, 46, 0.08);
   box-shadow:
     0 10px 32px -8px rgba(26, 26, 46, 0.09),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.85);
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.88);
 }
 
 /* Responsive Compositor-Only Navbar Contraction (Mobile-Tailored vs Desktop) */
