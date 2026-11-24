@@ -34,7 +34,7 @@ export const SALMA_PROFILE: ProfessionalProfile = {
     linkedin: 'https://www.linkedin.com/in/salma-atou-532846332',
     email: 'Salmaatouofficiel@gmail.com',
     tryhackme: 'https://tryhackme.com/p/SalmaAtouCyberNova',
-    github: 'https://github.com',
+    github: 'https://github.com/salmaatou-cybernova',
     hackerrank: 'https://www.hackerrank.com',
   },
   closingStatement: 'Trust, but verify — then verify again.',

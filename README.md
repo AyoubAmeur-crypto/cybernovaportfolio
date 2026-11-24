@@ -12,6 +12,8 @@
   <p>
     <a href="https://www.linkedin.com/in/salma-atou-532846332"><strong>LinkedIn</strong></a>
     &nbsp;·&nbsp;
+    <a href="https://github.com/salmaatou-cybernova"><strong>GitHub</strong></a>
+    &nbsp;·&nbsp;
     <a href="https://tryhackme.com/p/SalmaAtouCyberNova"><strong>TryHackMe</strong></a>
     &nbsp;·&nbsp;
     <a href="mailto:Salmaatouofficiel@gmail.com"><strong>Salmaatouofficiel@gmail.com</strong></a>
