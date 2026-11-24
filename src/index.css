@@ -1,0 +1,224 @@
+@import "tailwindcss";
+
+:root {
+  --color-canvas: #ffffff;
+  --color-surface: #f8f7fa;
+  --color-rose-tint: #fdf2f6;
+  --color-rose-wash: #f8e2ea;
+  --color-hero-pink: #fbcfe8;
+  --color-dusty-rose: #d4879c;
+  --color-dusty-rose-deep: #b8687f;
+  --color-theme-blue: #3b6fd8;
+  --color-deep-navy: #1a1a2e;
+  --color-ink-muted: #646464;
+  --shadow-viralytics: -1px 2px 9.5px 0px rgba(26, 26, 46, 0.055);
+  --shadow-viralytics-up: 1px -5px 12px 0px rgba(26, 26, 46, 0.08);
+  --radius-card: 24px;
+  --radius-pill-row: 32px;
+}
+
+html {
+  scroll-behavior: auto;
+  overflow-x: clip;
+}
+
+body {
+  font-family: 'Sora', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--color-canvas);
+  color: var(--color-deep-navy);
+  overflow-x: clip;
+}
+
+/* GSAP ScrollSmoother Container Architecture */
+#smooth-wrapper {
+  overflow: hidden;
+  width: 100%;
+}
+
+#smooth-content {
+  overflow: visible;
+  width: 100%;
+  will-change: transform;
+}
+
+/* Typography Utilities */
+.font-hero-sans {
+  font-family: 'Plus Jakarta Sans', 'Helvetica Now Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.font-special-bold {
+  font-family: 'Bricolage Grotesque', 'Plus Jakarta Sans', sans-serif;
+  font-weight: 800;
+}
+
+.font-editorial {
+  font-family: 'Sora', 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Brand Identity Pairing: lowercase "salma" (Times New Roman MT Italic) + "atou" (Be Vietnam Bold) attached */
+.font-brand-salma {
+  font-family: 'Times New Roman MT', 'Times New Roman', Times, Georgia, serif;
+  font-style: italic;
+}
+
+.font-brand-atou {
+  font-family: 'Be Vietnam Pro', 'Be Vietnam', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 700;
+}
+
+/* Dark-Blue Footer Background Gradient for Signature Wordmark (No Pink/Bright-Blue Mix) */
+.salma-signature-gradient {
+  background: linear-gradient(
+    180deg,
+    #0f1020 0%,
+    #1a1a2e 46%,
+    #2b2c4a 78%,
+    rgba(26, 26, 46, 0.18) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.baby-pink-flowers-video {
+  filter: hue-rotate(-78deg) saturate(0.55) brightness(1.1) contrast(1.2);
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.flower-same-level-text {
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.45);
+}
+
+/* Apple-Inspired Liquid Glass — STRICTLY RESERVED FOR THE FLOATING NAVBAR ONLY */
+.apple-navbar-glass-light {
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(20px) saturate(185%);
+  -webkit-backdrop-filter: blur(20px) saturate(185%);
+  border: 1px solid rgba(26, 26, 46, 0.08);
+  box-shadow:
+    0 10px 32px -8px rgba(26, 26, 46, 0.09),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.85);
+}
+
+/* Responsive Compositor-Only Navbar Contraction (Mobile-Tailored vs Desktop) */
+.navbar-glass-pill {
+  transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1);
+  opacity: 0;
+}
+
+.navbar-glass-pill[data-scrolled='true'] {
+  transform: translate3d(0px, 2px, 0px) scale3d(0.97, 1, 1);
+  opacity: 1;
+}
+
+.navbar-brand-glide,
+.navbar-controls-glide {
+  transform: translate3d(0px, 0px, 0px);
+}
+
+.navbar-brand-glide[data-scrolled='true'] {
+  transform: translate3d(8px, 2px, 0px);
+}
+
+.navbar-controls-glide[data-scrolled='true'] {
+  transform: translate3d(-8px, 2px, 0px);
+}
+
+@media (min-width: 640px) {
+  .navbar-glass-pill[data-scrolled='true'] {
+    transform: translate3d(0px, 4px, 0px) scale3d(0.84, 1, 1);
+  }
+
+  .navbar-brand-glide[data-scrolled='true'] {
+    transform: translate3d(clamp(20px, 7.5vw, 108px), 4px, 0px);
+  }
+
+  .navbar-controls-glide[data-scrolled='true'] {
+    transform: translate3d(calc(-1 * clamp(20px, 7.5vw, 108px)), 4px, 0px);
+  }
+}
+
+.viralytics-card-shadow {
+  box-shadow: var(--shadow-viralytics);
+}
+
+.rose-navy-art-filter {
+  filter: hue-rotate(38deg) saturate(0.78) contrast(1.03);
+}
+
+/* Smooth Horizontal Marquee for Technical Ecosystem */
+@keyframes marquee-scroll-left {
+  0% {
+    transform: translate3d(0%, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .tech-marquee-track {
+    animation: marquee-scroll-left 28s linear infinite;
+  }
+
+  .tech-marquee-wrap:hover .tech-marquee-track {
+    animation-play-state: paused;
+  }
+}
+
+/* Accessible Native <details> Accordion Progressive Enhancement */
+.viralytics-details > summary {
+  list-style: none;
+}
+
+.viralytics-details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.viralytics-details::details-content {
+  interpolate-size: allow-keywords;
+  overflow: clip;
+  contain: layout;
+}
+
+.viralytics-details:not([open])::details-content {
+  block-size: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .viralytics-details::details-content {
+    transition: block-size 0.28s ease-in-out, content-visibility 0.28s ease-in-out allow-discrete;
+  }
+}
+
+/* Native Modal <dialog> Scroll Containment & Top-Layer Smooth Entrance */
+.contact-modal-dialog:modal {
+  overscroll-behavior: contain;
+  margin: auto;
+}
+
+.contact-modal-dialog::backdrop {
+  overflow: hidden;
+  overscroll-behavior: contain;
+  background-color: rgba(26, 26, 46, 0.52);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .contact-modal-dialog[open] {
+    animation: modal-pop-in 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+}
+
+@keyframes modal-pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}

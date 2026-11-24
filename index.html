@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#1A1A2E" />
+
+    <!-- Primary Search Engine Metadata ("Salma Atou") -->
+    <title>Salma Atou — Cybersecurity Engineer | SOC, Penetration Testing &amp; AppSec</title>
+    <meta
+      name="title"
+      content="Salma Atou — Cybersecurity Engineer | SOC, Penetration Testing & AppSec"
+    />
+    <meta
+      name="description"
+      content="Salma Atou — Official Cybersecurity Engineer portfolio specializing in Security Operations Center (SOC), Offensive Security, Penetration Testing, Web & API Security, and Active Directory defense."
+    />
+    <meta name="author" content="Salma Atou" />
+    <meta
+      name="keywords"
+      content="Salma Atou, Salma Atou Cybersecurity, SalmaAtouCyberNova, Cybersecurity Engineer, Security Operations Center, SOC Analyst, Offensive Security, Penetration Testing, Web Application Security, API Security, Active Directory Security, Incident Response, Threat Hunting"
+    />
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+    />
+    <meta
+      name="googlebot"
+      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+    />
+
+    <!-- Open Graph / LinkedIn / Social Discovery -->
+    <meta property="og:type" content="profile" />
+    <meta property="og:site_name" content="Salma Atou" />
+    <meta property="profile:first_name" content="Salma" />
+    <meta property="profile:last_name" content="Atou" />
+    <meta
+      property="og:title"
+      content="Salma Atou — Cybersecurity Engineer | SOC, Penetration Testing & AppSec"
+    />
+    <meta
+      property="og:description"
+      content="Salma Atou is a Cybersecurity Engineer combining defensive SOC monitoring and threat detection with offensive web, API, and Active Directory security assessment."
+    />
+    <meta property="og:image" content="/assets/figma/about-studio-ee643f.png" />
+    <meta property="og:image:alt" content="Salma Atou — Cybersecurity Engineer Portfolio" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter / X Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Salma Atou — Cybersecurity Engineer | SOC, Penetration Testing & AppSec"
+    />
+    <meta
+      name="twitter:description"
+      content="Official portfolio of Salma Atou — Cybersecurity Engineer specializing in SOC operations, offensive security, web/API testing, and Active Directory defense."
+    />
+    <meta name="twitter:image" content="/assets/figma/about-studio-ee643f.png" />
+
+    <!-- Schema.org Entity Graph (Links Google Search for "Salma Atou" with LinkedIn & TryHackMe) -->
+    <script id="salma-jsonld" type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "ProfilePage",
+            "@id": "#profile-page",
+            "name": "Salma Atou — Cybersecurity Engineer Portfolio",
+            "description": "Official portfolio of Salma Atou, Cybersecurity Engineer specializing in Security Operations Center (SOC), Offensive Security, Web & API Security, and Active Directory Security.",
+            "inLanguage": "en",
+            "mainEntity": { "@id": "#salma-atou" }
+          },
+          {
+            "@type": "Person",
+            "@id": "#salma-atou",
+            "name": "Salma Atou",
+            "givenName": "Salma",
+            "familyName": "Atou",
+            "alternateName": ["SalmaAtouCyberNova", "salmaatou"],
+            "jobTitle": "Cybersecurity Engineer",
+            "description": "Cybersecurity Engineer combining defensive Security Operations Center (SOC) monitoring, log analysis, and incident response with offensive web application, API, and Active Directory security testing.",
+            "email": "mailto:Salmaatouofficiel@gmail.com",
+            "sameAs": [
+              "https://www.linkedin.com/in/salma-atou-532846332",
+              "https://tryhackme.com/p/SalmaAtouCyberNova"
+            ],
+            "knowsAbout": [
+              "Cybersecurity",
+              "Security Operations Center (SOC)",
+              "Offensive Security",
+              "Penetration Testing",
+              "Web Application Security",
+              "API Security",
+              "Active Directory Security",
+              "Threat Detection and Incident Response",
+              "MITRE ATT&CK",
+              "OWASP Top 10",
+              "SIEM",
+              "Splunk",
+              "Elastic",
+              "Wazuh",
+              "QRadar"
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "#website",
+            "name": "Salma Atou",
+            "alternateName": "Salma Atou — Cybersecurity Engineer",
+            "inLanguage": "en",
+            "publisher": { "@id": "#salma-atou" }
+          }
+        ]
+      }
+    </script>
+
+    <!-- Automatic Domain-Aware Canonical, Open Graph URL, & JSON-LD URL Hydrator -->
+    <script>
+      (function () {
+        try {
+          var origin = window.location.origin;
+          var canonicalUrl = origin + '/';
+
+          var canonical = document.createElement('link');
+          canonical.rel = 'canonical';
+          canonical.href = canonicalUrl;
+          document.head.appendChild(canonical);
+
+          var ogUrl = document.createElement('meta');
+          ogUrl.setAttribute('property', 'og:url');
+          ogUrl.content = canonicalUrl;
+          document.head.appendChild(ogUrl);
+
+          var ogImg = document.querySelector('meta[property="og:image"]');
+          if (ogImg && ogImg.getAttribute('content').charAt(0) === '/') {
+            ogImg.setAttribute('content', origin + ogImg.getAttribute('content'));
+          }
+
+          var ldScript = document.getElementById('salma-jsonld');
+          if (ldScript && ldScript.textContent) {
+            var data = JSON.parse(ldScript.textContent);
+            if (data['@graph']) {
+              data['@graph'].forEach(function (node) {
+                if (
+                  node['@type'] === 'ProfilePage' ||
+                  node['@type'] === 'Person' ||
+                  node['@type'] === 'WebSite'
+                ) {
+                  node.url = canonicalUrl;
+                }
+              });
+              ldScript.textContent = JSON.stringify(data);
+            }
+          }
+        } catch (_) {}
+      })();
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Sora:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-white text-[#1A1A2E] antialiased">
+    <div id="root"></div>
+    <noscript>
+      <main>
+        <h1>Salma Atou — Cybersecurity Engineer</h1>
+        <p>
+          Official cybersecurity portfolio of Salma Atou, specializing in Security Operations Center
+          (SOC), Offensive Security, Web Application Security, API Security, Active Directory
+          Security, and Threat Detection &amp; Incident Response.
+        </p>
+        <p>
+          Open to opportunities in security operations, penetration testing and application
+          security.
+        </p>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/salma-atou-532846332">Salma Atou on LinkedIn</a></li>
+          <li><a href="https://tryhackme.com/p/SalmaAtouCyberNova">Salma Atou on TryHackMe</a></li>
+          <li><a href="mailto:Salmaatouofficiel@gmail.com">Salmaatouofficiel@gmail.com</a></li>
+        </ul>
+      </main>
+    </noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

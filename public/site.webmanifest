@@ -1,0 +1,18 @@
+{
+  "name": "Salma Atou — Cybersecurity Engineer",
+  "short_name": "Salma Atou",
+  "description": "Official portfolio of Salma Atou, Cybersecurity Engineer specializing in Security Operations (SOC), Offensive Security, Web & API Security, and Active Directory defense.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#1A1A2E",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
+

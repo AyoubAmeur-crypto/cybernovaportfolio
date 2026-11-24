@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28" fill="none">
+  <style>
+    .diamond-primary { fill: #D4879C; }
+    .diamond-secondary { fill: #1A1A2E; fill-opacity: 0.35; }
+    @media (prefers-color-scheme: dark) {
+      .diamond-primary { fill: #FBCFE8; }
+      .diamond-secondary { fill: #D4879C; fill-opacity: 0.72; }
+    }
+  </style>
+  <path class="diamond-primary" d="M11.5 2L21.5 14L11.5 26L1.5 14L11.5 2Z" />
+  <path class="diamond-secondary" d="M16.5 2L26.5 14L16.5 26L6.5 14L16.5 2Z" />
+</svg>
+
