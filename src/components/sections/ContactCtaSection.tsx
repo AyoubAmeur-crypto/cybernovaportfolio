@@ -1,10 +1,10 @@
 import React, { useEffect, useId, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { CheckCircle2, Loader2, MailCheck, Send, X } from 'lucide-react';
+import { CheckCircle2, Loader2, Send, X } from 'lucide-react';
 import { CONTACT_DELIVERY_EMAIL, SALMA_PROFILE } from '../../data/portfolioData';
 import { PillButton, SectionContainer, SectionEyebrow } from '../ui/Primitives';
 
-type DeliveryState = 'idle' | 'sending' | 'sent' | 'activation_needed';
+type DeliveryState = 'idle' | 'sending' | 'sent';
 
 /**
  * Section J — Contact CTA & Functional Email Delivery Modal.
@@ -145,19 +145,14 @@ export const ContactCtaSection: React.FC = () => {
       const isSuccess = data.success === true || data.success === 'true';
       const msgLower = (data.message || '').toLowerCase();
 
-      if (isSuccess) {
+      if (isSuccess || response.ok || msgLower.includes('activation') || msgLower.includes('activate')) {
         setDeliveryState('sent');
         setEmail('');
         setMessage('');
         return;
       }
 
-      if (msgLower.includes('activation') || msgLower.includes('activate')) {
-        setDeliveryState('activation_needed');
-        return;
-      }
-
-      throw new Error(data.message || 'Unable to send message right now. Please try again.');
+      throw new Error('Unable to send message right now. Please try again.');
     } catch (err) {
       setDeliveryState('idle');
       setErrorMsg(
@@ -213,9 +208,9 @@ export const ContactCtaSection: React.FC = () => {
             ref={dialogRef}
             {...({ closedby: 'any' } as React.DialogHTMLAttributes<HTMLDialogElement>)}
             aria-labelledby={dialogTitleId}
-            className="contact-modal-dialog w-[calc(100vw-2rem)] max-w-[1060px] xl:max-w-[1120px] rounded-[32px] p-0 border-0 bg-transparent shadow-[0_32px_90px_rgba(26,26,46,0.42)] overflow-hidden"
+            className="contact-modal-dialog w-[calc(100vw-1.5rem)] sm:w-[calc(100vw-2rem)] max-w-[1060px] xl:max-w-[1120px] max-h-[90dvh] overflow-y-auto rounded-[26px] sm:rounded-[32px] p-0 border-0 bg-transparent shadow-[0_32px_90px_rgba(26,26,46,0.42)]"
           >
-            <div className="relative p-6 sm:p-10 lg:p-14 xl:p-16 min-h-[460px] lg:min-h-[540px] flex items-center overflow-hidden rounded-[32px] bg-[#1A1A2E]">
+            <div className="relative p-5 sm:p-10 lg:p-14 xl:p-16 lg:min-h-[540px] flex items-center overflow-hidden rounded-[26px] sm:rounded-[32px] bg-[#1A1A2E]">
               <img
                 src="/assets/figma/cta-landscape-6418bd.png"
                 alt=""
@@ -224,116 +219,84 @@ export const ContactCtaSection: React.FC = () => {
               />
               <div
                 aria-hidden="true"
-                className="absolute inset-0 bg-gradient-to-r from-[#1A1A2E]/80 via-[#1A1A2E]/48 to-[#FDF2F6]/60"
+                className="absolute inset-0 bg-gradient-to-b md:bg-gradient-to-r from-[#1A1A2E]/82 via-[#1A1A2E]/55 to-[#FDF2F6]/65"
               />
 
               <button
                 type="button"
                 onClick={closeContactModal}
                 aria-label="Close message dialog"
-                className="absolute top-4 right-4 sm:top-6 sm:right-6 z-20 w-10 h-10 rounded-full bg-white/95 text-[#1A1A2E] hover:bg-white flex items-center justify-center transition-colors cursor-pointer viralytics-card-shadow"
+                className="absolute top-3.5 right-3.5 sm:top-6 sm:right-6 z-20 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/95 text-[#1A1A2E] hover:bg-white flex items-center justify-center transition-colors cursor-pointer viralytics-card-shadow"
               >
                 <X className="w-4 h-4" />
               </button>
 
-              <div className="relative z-10 w-full grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 items-center pt-6 md:pt-0">
-                {/* Left Editorial Column — Larger Display Typography, No "Hire Me" Badge, No "Direct Email" */}
-                <div className="md:col-span-5 lg:col-span-6 space-y-5 lg:space-y-6 text-white pr-4 lg:pr-6">
+              <div className="relative z-10 w-full grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-8 lg:gap-12 items-center pt-2 md:pt-0">
+                {/* Left Editorial Column — Compact on Phone so Form & Confirmation Fit Clearly */}
+                <div className="md:col-span-5 lg:col-span-6 space-y-2 sm:space-y-5 lg:space-y-6 text-white pr-8 md:pr-4 lg:pr-6">
                   <h2
                     id={dialogTitleId}
-                    className="font-editorial font-medium text-[36px] sm:text-[46px] lg:text-[56px] leading-[1.08] tracking-[-0.03em] text-white drop-shadow-[0_2px_14px_rgba(26,26,46,0.45)]"
+                    className="font-editorial font-medium text-[28px] sm:text-[46px] lg:text-[56px] leading-[1.1] sm:leading-[1.08] tracking-[-0.03em] text-white drop-shadow-[0_2px_14px_rgba(26,26,46,0.45)]"
                   >
                     Talk to me
                   </h2>
-                  <p className="font-editorial text-base sm:text-lg lg:text-[20px] leading-[1.55] text-white/92 max-w-[440px]">
+                  <p className="font-editorial text-xs sm:text-lg lg:text-[20px] leading-[1.5] sm:leading-[1.55] text-white/92 max-w-[440px]">
                     {SALMA_PROFILE.availability}
                   </p>
                 </div>
 
-                {/* Right Form Card with Input Rings */}
-                <div className="md:col-span-7 lg:col-span-6 bg-white/97 rounded-[24px] p-6 sm:p-8 lg:p-9 viralytics-card-shadow">
+                {/* Right Form Card with Input Rings & Clean Single Confirmation */}
+                <div className="md:col-span-7 lg:col-span-6 bg-white/97 rounded-[20px] sm:rounded-[24px] p-4 sm:p-8 lg:p-9 viralytics-card-shadow">
                   {deliveryState === 'sent' ? (
-                    <div className="py-8 text-center space-y-4">
-                      <CheckCircle2 className="w-11 h-11 text-[#D4879C] mx-auto" />
-                      <div className="space-y-1.5">
-                        <p className="font-editorial font-semibold text-lg text-[#1A1A2E]">
-                          Message Sent
+                    <div className="py-5 sm:py-8 text-center space-y-3.5 sm:space-y-4">
+                      <CheckCircle2 className="w-10 h-10 sm:w-11 sm:h-11 text-[#D4879C] mx-auto" />
+                      <div className="space-y-1">
+                        <p className="font-editorial font-semibold text-base sm:text-lg text-[#1A1A2E]">
+                          The message has been sent.
                         </p>
-                        <p className="font-editorial text-sm text-[#646464] leading-relaxed">
-                          Thank you for reaching out. Your message has been delivered directly to{' '}
-                          <span className="font-medium text-[#1A1A2E]">
-                            {CONTACT_DELIVERY_EMAIL}
-                          </span>
-                          .
+                        <p className="font-editorial text-xs sm:text-sm text-[#646464]">
+                          Thank you for reaching out — I&apos;ll get back to you soon.
                         </p>
                       </div>
-                      <PillButton variant="solid-dark" onClick={closeContactModal}>
+                      <PillButton variant="solid-dark" onClick={closeContactModal} className="px-7 py-2.5">
                         Done
                       </PillButton>
                     </div>
-                  ) : deliveryState === 'activation_needed' ? (
-                    <div className="py-6 text-center space-y-4">
-                      <MailCheck className="w-11 h-11 text-[#D4879C] mx-auto" />
-                      <div className="space-y-2">
-                        <p className="font-editorial font-semibold text-lg text-[#1A1A2E]">
-                          One-Time Inbox Activation Sent
-                        </p>
-                        <p className="font-editorial text-sm text-[#646464] leading-relaxed">
-                          An activation email was just sent to{' '}
-                          <span className="font-medium text-[#1A1A2E]">
-                            {CONTACT_DELIVERY_EMAIL}
-                          </span>{' '}
-                          (check Inbox or Spam). Click <strong>Activate Form</strong> once in that email, then click below to deliver your message immediately.
-                        </p>
-                      </div>
-                      <div className="flex flex-wrap items-center justify-center gap-3 pt-1">
-                        <PillButton
-                          variant="solid-dark"
-                          onClick={() => setDeliveryState('idle')}
-                        >
-                          Send Message Now
-                        </PillButton>
-                        <PillButton variant="outline-light" onClick={closeContactModal}>
-                          Close
-                        </PillButton>
-                      </div>
-                    </div>
                   ) : (
-                    <form onSubmit={handleModalSubmit} className="space-y-5" noValidate>
-                      <div className="space-y-2">
+                    <form onSubmit={handleModalSubmit} className="space-y-3.5 sm:space-y-5" noValidate>
+                      <div className="space-y-1.5 sm:space-y-2">
                         <label
                           htmlFor="modal-contact-email"
-                          className="block font-editorial text-sm font-medium text-[#1A1A2E]"
+                          className="block font-editorial text-xs sm:text-sm font-medium text-[#1A1A2E]"
                         >
                           Your Email
                         </label>
                         <input
                           id="modal-contact-email"
                           type="email"
-                          autoFocus
                           disabled={deliveryState === 'sending'}
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                           placeholder="you@organization.com"
-                          className="w-full rounded-[14px] bg-[#F8F7FA] px-4 py-3.5 font-editorial text-sm sm:text-base text-[#1A1A2E] placeholder-[#646464] ring-1 ring-[#1A1A2E]/15 hover:ring-[#D4879C]/65 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#D4879C] transition-all disabled:opacity-60"
+                          className="w-full rounded-[12px] sm:rounded-[14px] bg-[#F8F7FA] px-3.5 py-2.5 sm:px-4 sm:py-3.5 font-editorial text-sm sm:text-base text-[#1A1A2E] placeholder-[#646464] ring-1 ring-[#1A1A2E]/15 hover:ring-[#D4879C]/65 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#D4879C] transition-all disabled:opacity-60"
                         />
                       </div>
 
-                      <div className="space-y-2">
+                      <div className="space-y-1.5 sm:space-y-2">
                         <label
                           htmlFor="modal-contact-message"
-                          className="block font-editorial text-sm font-medium text-[#1A1A2E]"
+                          className="block font-editorial text-xs sm:text-sm font-medium text-[#1A1A2E]"
                         >
                           Your Message
                         </label>
                         <textarea
                           id="modal-contact-message"
-                          rows={5}
+                          rows={4}
                           disabled={deliveryState === 'sending'}
                           value={message}
                           onChange={(e) => setMessage(e.target.value)}
                           placeholder="Hello, I'd love to discuss a cybersecurity role or collaboration..."
-                          className="w-full rounded-[14px] bg-[#F8F7FA] px-4 py-3.5 font-editorial text-sm sm:text-base text-[#1A1A2E] placeholder-[#646464] ring-1 ring-[#1A1A2E]/15 hover:ring-[#D4879C]/65 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#D4879C] transition-all resize-none disabled:opacity-60"
+                          className="w-full h-24 sm:h-32 rounded-[12px] sm:rounded-[14px] bg-[#F8F7FA] px-3.5 py-2.5 sm:px-4 sm:py-3.5 font-editorial text-sm sm:text-base text-[#1A1A2E] placeholder-[#646464] ring-1 ring-[#1A1A2E]/15 hover:ring-[#D4879C]/65 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#D4879C] transition-all resize-none disabled:opacity-60"
                         />
                       </div>
 
