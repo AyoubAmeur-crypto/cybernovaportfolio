@@ -23,6 +23,8 @@ Current phase: Phases 1–4 implemented and verified; bidirectional Hero-to-Cont
   - Prepared repository for Vercel hosting & automatic personal-name SEO (`"Salma Atou"`): added domain-auto-detecting `/robots.txt` (`api/robots.ts`) and `/sitemap.xml` (`api/sitemap.ts`) rewrites in `vercel.json`, `Schema.org` `ProfilePage` + `Person` + `WebSite` JSON-LD entity graph (`sameAs` linked to LinkedIn & TryHackMe), dynamic runtime canonical/OpenGraph URL hydration, crawlable `<noscript>` semantic HTML, `public/site.webmanifest`, strict single-`<h1>` hierarchy, and `api/contact.ts`.
 - **Strict Non-Fabrication Enforcement (`src/types/portfolio.ts`, `src/data/portfolioData.ts`)**:
   - Zero invented projects, collaborators, testimonials, or unconfirmed certifications are published; `Projects`, `Collaborations`, `Testimonials`, and unconfirmed `Certifications` remain automatically hidden until verified entries are supplied.
+- **Isolated Baby-Pink Maintenance Mode (`src/config/siteStatus.ts`, `middleware.ts`, `vite.config.ts`, `src/components/maintenance/MaintenancePage.tsx`, `src/components/maintenance/DisconnectedCablesIllustration.tsx`, `public/assets/ayoublogo.png`, `src/App.tsx`)**:
+  - Added server-side + client-side `MAINTENANCE_MODE` control (`MAINTENANCE_MODE=true` / `false`, plus Vercel `middleware.ts` and Vite `503` handler with `Retry-After: 3600` and `X-Robots-Tag: noindex, nofollow, noarchive`) rendering a full-viewport baby-pink (`#FFF8FA`) maintenance screen featuring Ayoub Ameur's logo (`public/assets/ayoublogo.png`) centered at the top, a `"Send report"` CTA linking to `https://ayoubameur.me`, and clean fixed SVG disconnected pastel cables (no sparks, dots, `"Scheduled maintenance"` pill, or bottom contact pills); setting `MAINTENANCE_MODE` to `false` restores the exact portfolio untouched.
 
 ## Changed & Added Files
 - `index.html`
@@ -30,15 +32,20 @@ Current phase: Phases 1–4 implemented and verified; bidirectional Hero-to-Cont
 - `package.json` (uses `gsap@3.15.1`, `react-icons`, and `lucide-react`; `lenis` removed)
 - `public/favicon.svg`
 - `public/site.webmanifest`
+- `public/assets/ayoublogo.png`
 - `public/assets/readme-banner-light.svg` / `public/assets/readme-banner-dark.svg`
 - `README.md`
 - `public/assets/figma/*` (9 extracted Viralytics SVG & PNG assets)
 - `src/index.css`
+- `middleware.ts`
+- `src/config/siteStatus.ts`
 - `src/types/portfolio.ts`
 - `src/data/portfolioData.ts`
 - `src/data/navData.ts`
 - `src/data/navData.test.ts`
 - `src/context/SmoothScrollContext.tsx`
+- `src/components/maintenance/MaintenancePage.tsx`
+- `src/components/maintenance/DisconnectedCablesIllustration.tsx`
 - `src/components/ui/Primitives.tsx`
 - `src/components/icons/BrandAndTechIcons.tsx`
 - `src/components/Navbar.tsx`
@@ -65,7 +72,7 @@ Current phase: Phases 1–4 implemented and verified; bidirectional Hero-to-Cont
 
 ## Actual Verification Results
 - **Typecheck (`npm run lint` -> `tsc --noEmit`)**: Passed (`0` errors).
-- **Unit Tests (`npx tsx --test src/data/navData.test.ts`)**: Passed (`5/5` tests passing).
+- **Unit Tests (`npx tsx --test src/data/navData.test.ts`)**: Passed (`8/8` tests passing).
 - **Production Build (`npm run build` -> `vite build`)**: Passed (`dist/` generated cleanly).
 - **Browser DevTools MCP Check**: Attempted against local Vite server; blocked by missing Chrome `DevToolsActivePort` (`chrome://inspect/#remote-debugging` not enabled in local Chrome). Enable remote debugging in Chrome if automated screenshot capture is desired.
 

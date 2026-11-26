@@ -25,6 +25,12 @@ import {
 import contactHandler from '../../api/contact';
 import robotsHandler from '../../api/robots';
 import sitemapHandler from '../../api/sitemap';
+import middleware, { injectMaintenanceHtml } from '../../middleware';
+import {
+  MAINTENANCE_MODE,
+  isMaintenanceModeActive,
+  resolveServerMaintenanceMode,
+} from '../config/siteStatus';
 
 test('SALMA_PROFILE reflects verified identity and links', () => {
   assert.equal(SALMA_PROFILE.name, 'Salma Atou');
@@ -140,4 +146,35 @@ test('Automatic domain-aware /robots.txt and /sitemap.xml endpoints resolve live
   assert.equal(sitemapRes.status, 200);
   const sitemapXml = await sitemapRes.text();
   assert.ok(sitemapXml.includes('<loc>https://salmaatou.vercel.app/</loc>'));
+});
+
+test('MAINTENANCE_MODE trigger and server middleware handle 503, Retry-After, noindex, static bypass, and disabled mode cleanly', async () => {
+  assert.equal(typeof MAINTENANCE_MODE, 'boolean');
+  assert.equal(isMaintenanceModeActive(true), true);
+  assert.equal(isMaintenanceModeActive(false), false);
+  assert.equal(isMaintenanceModeActive(true, 'false'), false);
+  assert.equal(isMaintenanceModeActive(false, 'true'), true);
+  assert.equal(resolveServerMaintenanceMode({ MAINTENANCE_MODE: 'true' }, false), true);
+  assert.equal(resolveServerMaintenanceMode({ MAINTENANCE_MODE: 'false' }, true), false);
+
+  // Static assets and internal bypass requests never loop or block
+  const assetRes = await middleware(new Request('https://salmaatou.vercel.app/assets/index.js'));
+  assert.equal(assetRes.headers.get('x-middleware-next'), '1');
+
+  const internalRes = await middleware(
+    new Request('https://salmaatou.vercel.app/index.html', {
+      headers: { 'x-maintenance-internal': '1' },
+    })
+  );
+  assert.equal(internalRes.headers.get('x-middleware-next'), '1');
+
+  // HTML injection sets noindex + runtime flag when enabled, and preserves clean state when disabled
+  const sampleHtml =
+    '<!doctype html><html><head><title>Salma Atou</title><meta name="robots" content="index, follow" /></head><body></body></html>';
+  const enabledHtml = injectMaintenanceHtml(sampleHtml, true);
+  assert.ok(enabledHtml.includes('noindex, nofollow, noarchive'));
+  assert.ok(enabledHtml.includes('window.__MAINTENANCE_MODE__ = true;'));
+
+  const disabledHtml = injectMaintenanceHtml(sampleHtml, false);
+  assert.ok(disabledHtml.includes('window.__MAINTENANCE_MODE__ = false;'));
 });

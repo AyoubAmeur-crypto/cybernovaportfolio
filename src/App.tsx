@@ -19,6 +19,8 @@ import { TestimonialsSection } from './components/sections/TestimonialsSection';
 import { CertificationsSection } from './components/sections/CertificationsSection';
 import { ContactCtaSection } from './components/sections/ContactCtaSection';
 import { Footer } from './components/sections/Footer';
+import { MaintenancePage } from './components/maintenance/MaintenancePage';
+import { isMaintenanceModeActive } from './config/siteStatus';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -80,7 +82,15 @@ const PortfolioLayout: React.FC = () => {
   );
 };
 
+// Toggle `MAINTENANCE_MODE` (`true` | `false`) in `src/config/siteStatus.ts`
+// or via the server-side `MAINTENANCE_MODE` environment variable:
+// - `true`  -> Renders standalone baby-pink <MaintenancePage /> without mounting the portfolio.
+// - `false` -> Renders the full portfolio untouched.
 export default function App() {
+  if (isMaintenanceModeActive()) {
+    return <MaintenancePage />;
+  }
+
   return (
     <SmoothScrollProvider fixedOverlays={<Navbar />}>
       <PortfolioLayout />
