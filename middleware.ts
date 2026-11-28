@@ -36,7 +36,7 @@ export function injectMaintenanceHtml(html: string, enabled: boolean): string {
   let updated = html
     .replace(
       /<title>[\s\S]*?<\/title>/i,
-      '<title>Temporarily disconnected</title>'
+      '<title>Temporarily disconnected.</title>'
     )
     .replace(
       /(<meta\s+name=["'](?:robots|googlebot)["'][\s\S]*?content=["'])[^"']* inc?d?e?x?[^"']*(["'])/gi,
